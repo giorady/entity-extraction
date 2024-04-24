@@ -56,3 +56,4 @@ def entity_extraction(cloud_event):
     client = bigquery.Client()
     job = client.load_table_from_json(json_rows, table_id)
     job.result()
+    # TEST
