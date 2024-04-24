@@ -1,0 +1,13 @@
+steps:
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      - gcloud
+      - functions
+      - deploy
+      - kawan_lama_workshop_gio
+      - --region=asia-southeast2
+      - --source=.
+      - --trigger-bucket=kawan_lama_workshop_gio
+      - --runtime=python311
+options:
+  logging: CLOUD_LOGGING_ONLY
