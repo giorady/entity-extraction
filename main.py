@@ -35,10 +35,11 @@ def entity_extraction(cloud_event):
     uri=uri
     )
 
-    prompt = """Extract Reseller Street Address, Reseller Name, and the duration term of the products ordered from the file and give the output in a format like this without any "json" string indicator in the beginning of your response. Just follow the format:
-    "street_address": "XXXX",
-    "name": "XXXX",
-    "term": "XXXX"
+    prompt = """Extract Reseller Legal Name, Reseller Name, Reseller Address, and the duration term of the products ordered in Year format if its longer or equal to 12 months, from the file and give the output in a format like this without any "json" string indicator in the beginning of your response. Just follow the format:
+    "reseller_legal_name": "XXXX",
+    "reseller_name": "XXXX",
+    "reseller_address": "XXXX",
+    "term": "XX YEAR",
     """
 
     responses = model.generate_content(
@@ -52,7 +53,7 @@ def entity_extraction(cloud_event):
     result_json = json.loads(result)
     json_rows=[result_json]
 
-    table_id = "datalabs-int-bigdata.gio_dev.kawan_lama_workshop_bq"
+    table_id = "datalabs-int-bigdata.gio_dev.entity_extraction_sample"
     client = bigquery.Client()
     job = client.load_table_from_json(json_rows, table_id)
     job.result()
